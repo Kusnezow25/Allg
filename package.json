@@ -4,5 +4,8 @@
   "main": "Dcbot.js",
   "scripts": {
     "start": "node Dcbot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.0.0"
   }
 }
