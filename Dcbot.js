@@ -5,7 +5,7 @@ const {
 } = require('discord.js');
 
 // ⚠️ NEUEN TOKEN HIER EINSETZEN (nach Reset!)
-const TOKEN = 'HIER_NEUER_TOKEN';
+const TOKEN = 'MTUwMTU3MzY5MDU2NTk4ODQ3NA.GGcpl8.6V4_UnY-bFMRyyygkhY4I-deT9oKhIzwjMIoug';
 
 const client = new Client({
     intents: [
