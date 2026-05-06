@@ -1,8 +1,11 @@
-const { 
-    Client, 
-    GatewayIntentBits, 
-    PermissionFlagsBits 
+const {
+    Client,
+    GatewayIntentBits,
+    PermissionFlagsBits
 } = require('discord.js');
+
+// 🔐 TOKEN HIER EINTRAGEN (oder besser ENV nutzen)
+const TOKEN = 'DEIN_BOT_TOKEN_HIER';
 
 const client = new Client({
     intents: [
@@ -12,21 +15,11 @@ const client = new Client({
     ]
 });
 
-const TOKEN = 'MTUwMTU1MjkwODU1Mjg5NjUyMg.GS6YWZ.WDEpDXl5FI_fclleBMaa62DGKbveJNR31zBKiQ';
-
 client.once('ready', () => {
-    console.log(`✅ Eingeloggt als ${client.user.tag}`);
+    console.log(`✅ Bot online als ${client.user.tag}`);
 });
 
-// Funktion: löscht ALLE Nachrichten (in 100er Blöcken)
-async function clearAll(channel) {
-    let deleted;
-
-    do {
-        deleted = await channel.bulkDelete(100, true);
-    } while (deleted.size !== 0);
-}
-
+// 🧹 CLEAR COMMAND (!c)
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
 
@@ -37,11 +30,14 @@ client.on('messageCreate', async (message) => {
         }
 
         try {
-            await message.reply('🧹 Lösche alle Nachrichten...');
+            await message.channel.send('🧹 Lösche alle Nachrichten...');
 
-            await clearAll(message.channel);
+            let deleted;
+            do {
+                deleted = await message.channel.bulkDelete(100, true);
+            } while (deleted.size !== 0);
 
-            const done = await message.channel.send('✅ Channel wurde geleert!');
+            const done = await message.channel.send('✅ Channel geleert!');
 
             setTimeout(() => done.delete().catch(() => {}), 3000);
 
