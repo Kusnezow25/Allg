@@ -4,8 +4,8 @@ const {
     PermissionFlagsBits
 } = require('discord.js');
 
-// ⚠️ NEUEN TOKEN HIER EINSETZEN (nach Reset!)
-const TOKEN = 'MTUwMTU3MzY5MDU2NTk4ODQ3NA.GGcpl8.6V4_UnY-bFMRyyygkhY4I-deT9oKhIzwjMIoug';
+// 🔐 TOKEN NICHT HARDCODEN (besser ENV nutzen)
+const TOKEN = process.env.TOKEN;
 
 const client = new Client({
     intents: [
@@ -30,19 +30,17 @@ client.on('messageCreate', async (message) => {
         }
 
         try {
-            await message.channel.send('🧹 Lösche Nachrichten...');
-
-            let deleted;
+            let messages;
             do {
-                deleted = await message.channel.bulkDelete(100, true);
-            } while (deleted.size > 0);
+                messages = await message.channel.bulkDelete(100, true);
+            } while (messages.size > 0);
 
-            const done = await message.channel.send('✅ Channel geleert!');
-            setTimeout(() => done.delete().catch(() => {}), 3000);
+            const msg = await message.channel.send('🧹 Channel geleert!');
+            setTimeout(() => msg.delete().catch(() => {}), 3000);
 
         } catch (err) {
-            console.error("CLEAR ERROR:", err);
-            message.channel.send('❌ Fehler (evtl. Nachrichten älter als 14 Tage)');
+            console.error(err);
+            message.channel.send('❌ Nachrichten älter als 14 Tage können nicht gelöscht werden.');
         }
     }
 });
