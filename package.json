@@ -1,1 +1,13 @@
 
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "main": "Dcbot.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node Dcbot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.0.0"
+  }
+}
